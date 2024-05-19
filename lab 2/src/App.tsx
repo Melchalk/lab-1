@@ -2,20 +2,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { MyText } from './Components/MyText';
-import { GetFacultyResponse } from './Components/GetFacultyResponse';
-import GetFaculty from './Components/GetFaculty';
+import { GetProductResponse } from './Components/GetProductResponse';
+import GetProduct from './Components/GetProduct';
 
 export default function App() {
   const [stateButton, setStateButton] = useState(false);
   const [stateText, setStateText] = useState<string>("");
-  const [data, setData] = useState<GetFacultyResponse[]>();
+  const [data, setData] = useState<GetProductResponse[]>();
 
   useEffect(() =>
   {
-    fetch("http://localhost:5084/api/faculty/get/all")
-      .then((res) => res.json())
-      .then((json) => setData(json))
-      .catch(() => console.log('error sync'))
+    fetch('https://fakestoreapi.com/products?limit=5')
+    .then((res) => res.json())
+    .then((json) => setData(json))
+    .catch(() => console.log('error sync'))
   }, []);
 
   console.log(stateButton);
@@ -30,7 +30,7 @@ export default function App() {
           }}
           >My Button</Button>
         <br />
-        {GetFaculty(data)}
+        {GetProduct(data)}
       </>
   );
 }

@@ -1,5 +1,5 @@
 {
-  "name": "mel-vite",
+  "name": "lab-2",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,11 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< Updated upstream
-=======
-    "@reduxjs/toolkit": "^2.2.4",
-    "axios": "^1.6.8",
->>>>>>> Stashed changes
     "bootstrap": "^5.3.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
