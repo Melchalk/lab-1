@@ -37,7 +37,7 @@ export function RegisterPage() {
   const register = () => {
     registerUser(stateRequest!)
       .then((res) =>{
-          dispatch(addToken(res.data?.accessToken));
+          dispatch(addToken(res.data?.token));
       })
   };
 
