@@ -2,9 +2,10 @@ import axios from "axios";
 
 export const appApiIns = axios.create(
     {
-        baseURL : 'http://localhost/',
+        baseURL : 'https://fakestoreapi.com/auth/',
         headers :{
-            'Authorization' : localStorage.getItem('accessToken') 
+            'Content-Type' : 'application/json',
+            'Authorization' : 'Bearer ' + localStorage.getItem('token') 
         }
     }
 )

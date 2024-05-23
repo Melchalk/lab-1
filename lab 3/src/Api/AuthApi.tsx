@@ -17,15 +17,14 @@ export interface RegisterRequest{
 
 export function loginUser(request:LoginRequest){
     return appApiIns.post('login',{
-        email: request.email,
-        password: request.password
+        username: "mor_2314",
+        password: "83r5^_"
     });
 }
 
 export function registerUser(request:RegisterRequest){
-    return appApiIns.post('register',{
-        name: request.name,
-        email: request.email,
-        password: request.password
+    return appApiIns.post('login',{
+        username: "mor_2314",
+        password: "83r5^_"
     });
 }
