@@ -25,7 +25,7 @@ export function createUser(){
     });
 }
 
-export function getUser(id:string){
+export function getUser(id:number){
     return appApiIns.get('users/'+id);
 }
 
@@ -33,7 +33,7 @@ export function getUsers(){
     return appApiIns.get('users');
 }
 
-export function deleteUser(id:string){
+export function deleteUser(id:number){
     return appApiIns.delete('users/delete', {
         params: {
             id: id

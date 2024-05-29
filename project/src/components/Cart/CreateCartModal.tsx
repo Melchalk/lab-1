@@ -54,11 +54,10 @@ export default function CreateCartModal(
                                     Number(t.target.value) >= 0 ? t.target.value : stateRequest.date})}/>
                         <Form.Control.Feedback type="invalid"> Дата не должна быть пустая </Form.Control.Feedback>
                     </FloatingLabel>
-                    <FloatingLabel label="Город">
-                        <Form.Control defaultValue={stateRequest.cityPublishing? stateRequest.cityPublishing : "Не задано"}
-                            placeholder="Город" onChange={(t) => 
-                                setStateRequest({...stateRequest, cityPublishing: t.target.value})}/>    
-                    </FloatingLabel>
+                    <Form.Select isInvalid={stateRequest.booksId == null} multiple
+                        onChange={(value) => setStateRequest({...stateRequest, booksId: [value.target.value]})} >
+                            {stateBookResponse?.map((item:GetBookResponse) => <option key={item.id} value={item.id}>{item.title}</option>)}
+                    </Form.Select>
                 </Stack>
             </Modal.Body>
             <Modal.Footer>
