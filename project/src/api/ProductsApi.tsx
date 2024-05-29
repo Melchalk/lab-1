@@ -28,7 +28,7 @@ export function createProduct(){
     });
 }
 
-export function getProduct(id:string){
+export function getProduct(id:number){
     return appApiIns.get('products/'+id);
 }
 
@@ -36,7 +36,7 @@ export function getProducts(){
     return appApiIns.get('products');
 }
 
-export function deleteProduct(id:string){
+export function deleteProduct(id:number){
     return appApiIns.delete('product/delete', {
         params: {
             id: id
