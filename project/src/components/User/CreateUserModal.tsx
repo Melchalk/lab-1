@@ -12,7 +12,7 @@ export default function CreateUserModal(
     const navigate = useNavigate();
 
     const onCreateUser = () => {
-        createUser()
+        createUser(stateRequest)
             .then(() =>{
                 setShowModal(false);
                 navigate('/users');

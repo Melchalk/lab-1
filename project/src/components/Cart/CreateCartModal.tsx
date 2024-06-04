@@ -3,8 +3,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from 'react-router-dom';
 import { CreateCart, createCart } from '../../api/CartsApi';
+import { GetProduct } from '../../api/ProductsApi';
 
 export default function CreateCartModal(
+    stateProductResponse: GetProduct[],
     stateRequest: CreateCart, setStateRequest: any,
     show:boolean, setShowModal: any,
     setShowToast: any, setError: React.Dispatch<any>) {
@@ -12,7 +14,7 @@ export default function CreateCartModal(
     const navigate = useNavigate();
     
     const onCreateCart = () => {
-        createCart()
+        createCart(stateRequest)
             .then(() =>{
                 setShowModal(false);
                 navigate('/carts');
@@ -35,7 +37,7 @@ export default function CreateCartModal(
     return (
         <Modal show={show} onClose={() => setShowModal(false)}>
             <Modal.Header closeButton onClick={() => setShowModal(false)}>
-                <Modal.Title>Добавление книги</Modal.Title>
+                <Modal.Title>Добавление корзины</Modal.Title>
             </Modal.Header>
             <Modal.Body> 
                 <Stack gap={3} className="mx-auto">
@@ -48,15 +50,14 @@ export default function CreateCartModal(
                         <Form.Control.Feedback type="invalid"> Id пользователя должно быть больше 0 </Form.Control.Feedback>
                     </FloatingLabel>
                     <FloatingLabel label="Дата">
-                        <Form.Control  defaultValue={stateRequest.date? stateRequest.date : "Не задано"} 
-                            isInvalid={stateRequest.date == null} placeholder="Дата" onChange={(t) => 
-                                setStateRequest({...stateRequest, date:
-                                    Number(t.target.value) >= 0 ? t.target.value : stateRequest.date})}/>
+                        <Form.Control  defaultValue={new Date(stateRequest.date).toLocaleString()? stateRequest.date : "Не задано"} 
+                            isInvalid={stateRequest.date == null || stateRequest.date.length == 0} placeholder="Дата" onChange={(t) => 
+                                setStateRequest({...stateRequest, date: t.target.value})}/>
                         <Form.Control.Feedback type="invalid"> Дата не должна быть пустая </Form.Control.Feedback>
                     </FloatingLabel>
-                    <Form.Select isInvalid={stateRequest.booksId == null} multiple
-                        onChange={(value) => setStateRequest({...stateRequest, booksId: [value.target.value]})} >
-                            {stateBookResponse?.map((item:GetBookResponse) => <option key={item.id} value={item.id}>{item.title}</option>)}
+                    <Form.Select multiple>
+                            {stateProductResponse?.map((item:GetProduct) =>
+                                <option key={item.id} value={item.title}>{item.title}</option>)}
                     </Form.Select>
                 </Stack>
             </Modal.Body>

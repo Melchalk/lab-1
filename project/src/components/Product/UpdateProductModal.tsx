@@ -12,7 +12,7 @@ export default function UpdateProductModal(
     const navigate = useNavigate();
     
     const onUpdateProduct = () => {
-        updateProduct()
+        updateProduct(stateRequest)
             .then(() =>{
                 setShowModal(false);
                 navigate('/products');

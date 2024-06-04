@@ -6,7 +6,7 @@ export function NavigationBar(){
             <Container>
                 <Navbar.Brand href="/products">Продукты</Navbar.Brand>
                 <Nav className="me-auto">
-                    <Nav.Link href="/carts">Карточки</Nav.Link>
+                    <Nav.Link href="/carts">Корзины</Nav.Link>
                     <Nav.Link href="/users"> Пользователи</Nav.Link>
                 </Nav>
                 <DropdownButton id="dropdown-profile-button" title="Аккаунт">

@@ -9,10 +9,10 @@ export interface CreateProduct{
 
 export interface UpdateProduct{
     id: number,
-    title: string,
-    price: number,
-    category: string,
-    description: string
+    title: string | null,
+    price: number | null,
+    category: string | null,
+    description: string | null
 }
 
 export interface GetProduct{
@@ -23,8 +23,13 @@ export interface GetProduct{
     description: string
 }
 
-export function createProduct(){
-    return appApiIns.post('products/create',{
+export function createProduct(request:CreateProduct){
+    return appApiIns.post('products', {
+        title: 'test product',
+        price: 13.5,
+        description: 'lorem ipsum set',
+        image: 'https://i.pravatar.cc',
+        category: 'electronic'
     });
 }
 
@@ -37,13 +42,15 @@ export function getProducts(){
 }
 
 export function deleteProduct(id:number){
-    return appApiIns.delete('product/delete', {
-        params: {
-            id: id
-        }
-    });
+    return appApiIns.delete('products/6');
 }
 
-export function updateProduct(){
-    return appApiIns.put('products/update');
+export function updateProduct(request:UpdateProduct){
+    return appApiIns.put('products/7', {
+        title: 'test product',
+        price: 13.5,
+        description: 'lorem ipsum set',
+        image: 'https://i.pravatar.cc',
+        category: 'electronic'
+    });
 }

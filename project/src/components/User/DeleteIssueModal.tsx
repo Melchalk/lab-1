@@ -39,7 +39,7 @@ export default function DeleteUserModal(
             </Modal.Header>
             <Modal.Body> 
                 <Stack>
-                    <h5>Id выдачи</h5>
+                    <h5>Id корзины</h5>
                     <h6>{stateResponse.id}</h6>
                     <h5>Почта</h5>
                     <h6>{stateResponse.email}</h6>

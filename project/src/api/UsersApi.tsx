@@ -8,9 +8,9 @@ export interface CreateUser{
 
 export interface UpdateUser{
     id: number,
-    email: string,
-    username: string,
-    phone: string
+    email: string | null,
+    username: string | null,
+    phone: string | null
 }
 
 export interface GetUser{
@@ -20,8 +20,26 @@ export interface GetUser{
     phone: string
 }
 
-export function createUser(){
-    return appApiIns.post('users/create',{
+export function createUser(request:CreateUser){
+    return appApiIns.post('users', {
+        email:'John@gmail.com',
+        username:'johnd',
+        password:'m38rmF$',
+        name:{
+            firstname:'John',
+            lastname:'Doe'
+        },
+        address:{
+            city:'kilcoole',
+            street:'7835 new road',
+            number:3,
+            zipcode:'12926-3874',
+            geolocation:{
+                lat:'-37.3159',
+                long:'81.1496'
+            }
+        },
+        phone:'1-570-236-7033'
     });
 }
 
@@ -34,13 +52,28 @@ export function getUsers(){
 }
 
 export function deleteUser(id:number){
-    return appApiIns.delete('users/delete', {
-        params: {
-            id: id
-        }
-    });
+    return appApiIns.delete('users/6');
 }
 
-export function updateUser(){
-    return appApiIns.put('users/update');
+export function updateUser(request:UpdateUser){
+    return appApiIns.put('users',{
+        email:'John@gmail.com',
+        username:'johnd',
+        password:'m38rmF$',
+        name:{
+            firstname:'John',
+            lastname:'Doe'
+        },
+        address:{
+            city:'kilcoole',
+            street:'7835 new road',
+            number:3,
+            zipcode:'12926-3874',
+            geolocation:{
+                lat:'-37.3159',
+                long:'81.1496'
+            }
+        },
+        phone:'1-570-236-7033'
+        });
 }

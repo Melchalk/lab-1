@@ -3,8 +3,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from 'react-router-dom';
 import { UpdateCart, deleteCart, updateCart } from '../../api/CartsApi';
+import { GetProduct } from '../../api/ProductsApi';
 
 export default function UpdateCartModal(
+    stateProductResponse: any,
     stateRequest: UpdateCart, setStateRequest: any,
     show:boolean, setShowModal: any,
     setShowToast: any, setError: React.Dispatch<any>) {
@@ -12,7 +14,7 @@ export default function UpdateCartModal(
     const navigate = useNavigate();
     
     const onUpdateCart = () => {
-        updateCart()
+        updateCart(stateRequest)
             .then(() =>{
                 setShowModal(false);
                 navigate('/carts');
@@ -56,7 +58,7 @@ export default function UpdateCartModal(
     return (
         <Modal show={show} onClose={() => setShowModal(false)}>
             <Modal.Header closeButton onClick={() => setShowModal(false)}>
-                <Modal.Title>Обновление книги</Modal.Title>
+                <Modal.Title>Обновление корзины</Modal.Title>
             </Modal.Header>
             <Modal.Body> 
                 <Stack gap={3} className="mx-auto">
@@ -64,20 +66,20 @@ export default function UpdateCartModal(
                         <Form.Control defaultValue={stateRequest.userId? stateRequest.userId : "Не задано"} 
                             isInvalid={stateRequest.userId != null && stateRequest.userId <= 0}
                             type="number" placeholder="Id пользователя" onChange={(t) => 
-                                setStateRequest({...stateRequest, numberPages:
-                                (!isNaN(Number(t.target.value)) && Number(t.target.value) != 0)  ? Number(t.target.value) : null})}/>
+                                setStateRequest({...stateRequest, userId:
+                                !isNaN(Number(t.target.value)) ? Number(t.target.value) : null})}/>
                         <Form.Control.Feedback type="invalid"> Id пользователя должно быть больше 0 </Form.Control.Feedback>
                     </FloatingLabel>
                     <FloatingLabel label="Дата">
-                        <Form.Control  defaultValue={stateRequest.date? stateRequest.date : "Не задано"} 
-                            isInvalid={stateRequest.date != null && stateRequest.date.length == 0} placeholder="Дата" onChange={(t) => 
-                                setStateRequest({...stateRequest, yearPublishing: t.target.value})}/>
+                        <Form.Control  defaultValue={stateRequest.date? new Date(stateRequest.date).toLocaleString() : "Не задано"} 
+                            isInvalid={stateRequest.date == null ||  stateRequest.date.length == 0} placeholder="Дата" onChange={(t) => 
+                                setStateRequest({...stateRequest, date: t.target.value})}/>
+                        <Form.Control.Feedback type="invalid"> Дата не должна быть пустая </Form.Control.Feedback>
                     </FloatingLabel>
-                    <FloatingLabel label="Город публикации">
-                        <Form.Control defaultValue={stateRequest.cityPublishing? stateRequest.cityPublishing : "Не задано"}
-                            placeholder="Город публикации" onChange={(t) => 
-                                setStateRequest({...stateRequest, cityPublishing: t.target.value})}/>    
-                    </FloatingLabel>
+                    <Form.Select isInvalid={stateRequest.products == null} multiple
+                        onChange={(value) => setStateRequest({...stateRequest, products: [value.target.value]})} >
+                            {stateProductResponse?.map((item:GetProduct) => <option key={item.id} value={item.id}>{item.title}</option>)}
+                    </Form.Select>
                 </Stack>
             </Modal.Body>
             <Modal.Footer>

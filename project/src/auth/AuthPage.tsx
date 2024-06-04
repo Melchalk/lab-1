@@ -1,6 +1,6 @@
 import { Button, FloatingLabel, Form, Nav, Stack, Toast, ToastContainer } from "react-bootstrap";
 import { useAppDispatch } from "../redux/hooks";
-import { addAuthToken, addRefreshToken, logout } from "../redux/authSlice";
+import { addAuthToken, logout } from "../redux/authSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorToast from "../components/ErrorToast";
@@ -41,7 +41,7 @@ export function LoginPage() {
     const onLoginUser = () => {
       loginUser()
         .then((res) =>{
-            dispatch(addAuthToken(res.data?.accessToken));
+            dispatch(addAuthToken(res.data?.token));
 
             navigate('/account');
         })
@@ -59,15 +59,15 @@ export function LoginPage() {
 
     return (
       <>
-        <Stack gap={3} className="col-md-2 mx-auto mb-3 mt-5">
-          <FloatingLabel label="Email" className="col-md-2 mx-auto mt-5">
+        <Stack gap={3} className="col-md-3 mx-auto mb-3 mt-5">
+          <FloatingLabel label="Email">
             <Form.Control placeholder="name@example.com" onChange={(t) => setStateRequest({...stateRequest!, email: t.target.value})}/>
           </FloatingLabel>
-          <FloatingLabel label="Password" className="col-md-2 mx-auto mt-2">
+          <FloatingLabel label="Password">
             <Form.Control type="password" placeholder="Password" onChange={(t) => setStateRequest({...stateRequest!, password: t.target.value})}/>
           </FloatingLabel>
 
-          <Button variant="warning" className="mx-auto" onClick={() => onLoginUser()}>Ok</Button>
+          <Button variant="primary" className="mx-auto" onClick={() => onLoginUser()}>Войти</Button>
           
           <Nav.Item className="mx-auto">
             <Nav.Link href="/register">Регистрация</Nav.Link>
@@ -91,8 +91,7 @@ export function RegisterPage() {
   const onRegisterUser = () => {
     registerUser()
       .then((res) =>{
-          dispatch(addAuthToken(res.data?.accessToken));
-          dispatch(addRefreshToken(res.data?.refreshToken));
+          dispatch(addAuthToken(res.data?.token));
 
           navigate('/account');
       })
@@ -110,18 +109,18 @@ export function RegisterPage() {
 
   return (
     <>
-      <Stack gap={3} className="col-md-2 mx-auto mb-3 mt-5">
-        <FloatingLabel label="Name" className="col-md-2 mx-auto mt-5">
+      <Stack gap={3} className="col-md-3 mx-auto mb-3 mt-5">
+        <FloatingLabel label="Name">
           <Form.Control placeholder="Name" onChange={(t) => setStateRequest({...stateRequest!, name: t.target.value})}/>
         </FloatingLabel>
-        <FloatingLabel label="Email" className="col-md-2 mx-auto mt-2">
+        <FloatingLabel label="Email">
           <Form.Control placeholder="name@example.com" onChange={(t) =>  setStateRequest({...stateRequest!, email: t.target.value})}/>
         </FloatingLabel>
-        <FloatingLabel label="Password" className="col-md-2 mx-auto mt-2">
+        <FloatingLabel label="Password">
           <Form.Control type="password" placeholder="Password" onChange={(t) => setStateRequest({...stateRequest!, password: t.target.value})}/>
         </FloatingLabel>
 
-        <Button variant="warning" className="mx-auto"  onClick={() => onRegisterUser()}>Ok</Button>
+        <Button variant="primary" className="mx-auto"  onClick={() => onRegisterUser()}>Зарегистрироваться</Button>
         
         <Nav.Item className="mx-auto">
           <Nav.Link href="/auth">Вход</Nav.Link>

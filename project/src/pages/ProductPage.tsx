@@ -8,8 +8,19 @@ import ProductsTable from "../components/Product/ProductsTable";
 
 export default function ProductPage(){
     const [stateResponse, setStateResponse] = useState<GetProduct[]>();    
-    const [stateCreateRequest, setStateCreateRequest] = useState<CreateProduct>();    
-    const [stateUpdateRequest, setStateUpdateRequest] = useState<UpdateProduct>();    
+    const [stateCreateRequest, setStateCreateRequest] = useState<CreateProduct>({
+        title: '',
+        price: 0,
+        category: '',
+        description: ''
+    });       
+    const [stateUpdateRequest, setStateUpdateRequest] = useState<UpdateProduct>({
+        id: 0,
+        title: null,
+        price: null,
+        category: null,
+        description: null
+    });       
 
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -38,7 +49,7 @@ export default function ProductPage(){
 
     return(
         <>
-            <Button variant="warning" className="col-md-1.5" onClick={() =>  setShowCreateModal(true)}>Создать продукт</Button>
+            <Button variant="danger" className="col-md-1.5" onClick={() =>  setShowCreateModal(true)}>Создать продукт</Button>
 
             {stateResponse?.length == 0 ? <h4>Продукты не найдены</h4> :
                 ProductsTable(stateResponse!, setShowUpdateModal, setStateUpdateRequest)}        

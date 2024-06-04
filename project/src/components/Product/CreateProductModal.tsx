@@ -12,7 +12,7 @@ export default function CreateProductModal(
     const navigate = useNavigate();
     
     const onCreateProduct = () => {
-        createProduct()
+        createProduct(stateRequest)
             .then(() =>{
                 setShowModal(false);
                 navigate('/products');
@@ -40,7 +40,7 @@ export default function CreateProductModal(
             <Modal.Body> 
                 <Stack gap={3} className="mx-auto">
                 <FloatingLabel label="Название">
-                        <Form.Control defaultValue={stateRequest.title ? stateRequest.title : "Не задано"}
+                        <Form.Control defaultValue={stateRequest?.title ? stateRequest.title : "Не задано"}
                             isInvalid={stateRequest.title == null || stateRequest.title?.length == 0}
                             placeholder="Название" onChange={(t) => 
                                 setStateRequest({...stateRequest, title: t.target.value})}/>

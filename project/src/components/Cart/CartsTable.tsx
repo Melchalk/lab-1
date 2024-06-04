@@ -12,6 +12,7 @@ export default function CartsTable(
                     <th>Id</th>
                     <th>Id пользователя</th>
                     <th>Дата</th>
+                    <th>Количество продуктов</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +23,8 @@ export default function CartsTable(
                         )}}>
                         <td>{item.id}</td>
                         <td>{item.userId}</td>
-                        <td>{item.date}</td>
+                        <td>{new Date(item.date).toLocaleString()}</td>
+                        <td>{item.products.length}</td>
                     </tr>
                 )}
             </tbody>

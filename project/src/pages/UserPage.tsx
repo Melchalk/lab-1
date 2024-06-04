@@ -8,8 +8,17 @@ import DeleteUserModal from "../components/User/DeleteIssueModal";
 
 export default function UserPage(){
     const [stateResponse, setStateResponse] = useState<GetUser[]>();    
-    const [stateCreateRequest, setStateCreateRequest] = useState<CreateUser>();    
-    const [stateDeleteRequest, setStateDeleteRequest] = useState<GetUser>();      
+    const [stateCreateRequest, setStateCreateRequest] = useState<CreateUser>({
+        email: '',
+        username: '',
+        phone: ''
+    });
+    const [stateDeleteRequest, setStateDeleteRequest] = useState<GetUser>({
+        id: 0,
+        email: '',
+        username: '',
+        phone: ''
+    });    
 
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -38,7 +47,7 @@ export default function UserPage(){
 
     return(
         <>
-            <Button variant="warning" className="col-md-1.5 mb-3" onClick={() => setShowCreateModal(true)}>Добавить пользователя</Button>
+            <Button variant="danger" className="col-md-1.5 mb-3" onClick={() => setShowCreateModal(true)}>Добавить пользователя</Button>
 
             {stateResponse?.length == 0 ? <h4>Пользователи не найдены</h4> :
                 UsersTable(stateResponse!, setStateDeleteRequest, setShowDeleteModal)}
